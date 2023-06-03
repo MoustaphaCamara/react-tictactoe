@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Square from "../Square/Square";
 import "./Board.scss";
 
@@ -37,6 +37,15 @@ const Board = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const winner = calculateWinner(squares);
+    if (winner) {
+      setStatus("Winner: " + winner);
+    } else {
+      setStatus(`Next player: ${isX ? "X" : "O"}`);
+    }
+  }, [isX]);
 
   return (
     <>
