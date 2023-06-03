@@ -2,19 +2,45 @@ import { useState } from "react";
 import Square from "../Square/Square";
 import "./Board.scss";
 
+const lines = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
 const Board = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [isX, setIsX] = useState(true);
+  const [status, setStatus] = useState("");
 
   const handleClick = (i) => {
+    if (squares[i] || calculateWinner(squares)) return;
     const updatedSquares = [...squares];
     updatedSquares[i] = isX ? "X" : "O";
     setSquares(updatedSquares);
     setIsX(!isX);
-    console.log(updatedSquares);
   };
+
+  const calculateWinner = (squares) => {
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
+      ) {
+        return squares[a];
+      }
+    }
+  };
+
   return (
     <>
+      <p>{status}</p>
       <div className="board">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
