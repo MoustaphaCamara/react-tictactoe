@@ -13,17 +13,15 @@ const lines = [
   [2, 4, 6],
 ];
 
-const Board = () => {
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [isX, setIsX] = useState(true);
+const Board = ({ isX, squares, onPlay }) => {
+  // const [squares, setSquares] = useState(Array(9).fill(null));
   const [status, setStatus] = useState("");
 
   const handleClick = (i) => {
     if (squares[i] || calculateWinner(squares)) return;
     const updatedSquares = [...squares];
     updatedSquares[i] = isX ? "X" : "O";
-    setSquares(updatedSquares);
-    setIsX(!isX);
+    onPlay(updatedSquares);
   };
 
   const calculateWinner = (squares) => {
