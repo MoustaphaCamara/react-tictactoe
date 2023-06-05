@@ -14,9 +14,7 @@ const lines = [
 ];
 
 const Board = ({ isX, squares, onPlay }) => {
-  // const [squares, setSquares] = useState(Array(9).fill(null));
   const [status, setStatus] = useState("");
-
   const handleClick = (i) => {
     if (squares[i] || calculateWinner(squares)) return;
     const updatedSquares = [...squares];
@@ -50,15 +48,13 @@ const Board = ({ isX, squares, onPlay }) => {
     <>
       <p>{status}</p>
       <div className="board">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+        {squares.map((square, index) => (
+          <Square
+            key={index}
+            value={square}
+            onSquareClick={() => handleClick(index)}
+          />
+        ))}
       </div>
     </>
   );
