@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Board from "../../components/Board/Board";
-import "./Game.scss";
 
 const Game = () => {
   const [isX, setIsX] = useState(true);
